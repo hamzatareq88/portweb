@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hamza Portfolio</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&family=Playfair+Display+SC:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+        playfair: ['"Playfair Display SC"', 'serif'],
+      },
+      colors: {
+        redish: '#da0202'
+      }
+    }
+  }
+}
+</script>
+
+<style>
+html { scroll-behavior: smooth; }
+body { background: #0b0b0b; }
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* Card Animations */
+@keyframes enterUp {0% { opacity: 0; transform: translateY(18px) scale(0.995);} 100% { opacity: 1; transform: translateY(0) scale(1);}}
+@keyframes float {0%,100% { transform: translateY(0);} 50% { transform: translateY(-6px);}}
+.card-entrance { animation: enterUp 0.7s cubic-bezier(.2,.9,.2,1) both; }
+.floating { animation: float 6s ease-in-out infinite; }
+
+/* Navbar links */
+.nav-link::after { content: ''; position: absolute; width: 0%; height: 2px; bottom: -3px; left: 0; background: linear-gradient(to right, #da0202, #f3eff1); transition: width 0.3s ease-in-out; }
+.nav-link:hover::after { width: 100%; }
+</style>
+</head>
+<body class="font-sans text-white">
+
+<!-- Navbar -->
+<nav class="bg-black text-white px-6 py-3 flex items-center justify-between rounded-full shadow-lg max-w-4xl mx-auto mt-4">
+<span class="font-playfair text-lg">Hamza</span>
+<div class="hidden md:flex items-center space-x-8">
+<a href="#home" class="nav-link relative font-medium text-gray-300">Home</a>
+<a href="#about" class="nav-link relative font-medium text-gray-300">About</a>
+<a href="#portfolio" class="nav-link relative font-medium text-gray-300">Portfolio</a>
+<a href="#contact" class="nav-link relative font-medium text-gray-300">Contact</a>
+</div>
+<button id="menu-btn" class="md:hidden text-2xl focus:outline-none">&#9776;</button>
+</nav>
+<div id="menu" class="hidden flex flex-col items-center space-y-4 mt-3 bg-black text-white rounded-xl py-5 max-w-4xl mx-auto md:hidden">
+<a href="#home" class="px-6 py-2 hover:text-redish">Home</a>
+<a href="#about" class="px-6 py-2 hover:text-redish">About</a>
+<a href="#portfolio" class="px-6 py-2 hover:text-redish">Portfolio</a>
+<a href="#contact" class="px-6 py-2 hover:text-redish">Contact</a>
+</div>
+<script>
+const btn = document.getElementById('menu-btn');
+const menu = document.getElementById('menu');
+btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+</script>
+
+<!-- Hero -->
+<header id="home" class="relative h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+<div id="bg" class="absolute inset-0 bg-center bg-cover -z-10 transition-all duration-700" style="background-image:url('https://i.pinimg.com/1200x/e0/b0/f5/e0b0f5edab3b57dae516b383d8f6f136.jpg'); filter: blur(0px);"></div>
+<div id="overlay" class="absolute inset-0 -z-10 bg-black/60 transition-opacity duration-700"></div>
+<h1 class="font-playfair text-4xl sm:text-5xl md:text-6xl font-bold text-gray-100 card-entrance">Hamza Tariq</h1>
+<h5 class="mt-4 max-w-sm sm:max-w-md md:max-w-lg text-white/80 text-sm sm:text-base card-entrance">Aspiring web developer, designer & creative learner</h5>
+<a href="#content" class="absolute bottom-6 flex flex-col items-center gap-1 text-white/70 animate-bounce">
+<span class="text-xs">Scroll</span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><path d="M12 16a1 1 0 0 1-.7-.29l-6-6a1 1 0 1 1 1.4-1.42L12 13.59l5.3-5.3a1 1 0 0 1 1.4 1.42l-6 6A1 1 0 0 1 12 16Z"/></svg>
+</a>
+</header>
+
+<!-- Main Content -->
+<main id="content" class="relative z-10 px-4 sm:px-6 pb-16 -mt-6 space-y-16 max-w-5xl mx-auto">
+  <!-- About, Education, Work, Skills, Connect cards go here -->
+  <!-- Keep your existing HTML for all cards -->
+</main>
+
+<script>
+// Background blur on scroll
+window.addEventListener('scroll', () => {
+  const bg = document.getElementById('bg');
+  let scrollY = window.scrollY;
+  let blur = Math.min(scrollY / 50, 8);
+  bg.style.filter = `blur(${blur}px)`;
+});
+
+// Skills bar animation on scroll
+const skillItems = document.querySelectorAll('.skill-item');
+const observer = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+const bar = entry.target.querySelector('.skill-bar');
+if(bar){
+bar.style.width = bar.getAttribute('style').match(/width:\d+%/)[0].split(':')[1];
+}
+}
+});
+}, {threshold:0.3});
+skillItems.forEach(item => observer.observe(item));
+</script>
+    <!-- About Card -->
+<!-- About Me Card -->
+<section class="relative flex justify-center mt-[-6rem] px-4 sm:px-6">
+  <article class="w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(2,6,23,0.6)] hover:shadow-[0_20px_50px_rgba(2,6,23,0.8)] transition-all duration-500 transform hover:scale-105 card-entrance">
+
+    <!-- Upper Centered Pill -->
+    <div class="text-center mb-6">
+      <div class="inline-block bg-white/10 px-4 py-1 rounded-full text-gray-300 text-sm font-playfair">ABOUT ME</div>
+    </div>
+
+    <div class="md:grid md:grid-cols-2 gap-8 items-center">
+      <!-- Left Content -->
+      <div class="space-y-4">
+        <h2 class="font-playfair text-3xl md:text-5xl font-bold text-gray-100">
+          Hamza Tariq
+        </h2>
+        <p class="text-gray-300 mt-3 text-sm md:text-base leading-relaxed max-w-xl mx-auto">
+          I'm a passionate and motivated beginner web developer currently learning the basics of HTML, CSS, and JavaScript. I enjoy building simple, creative websites and continuously exploring new technologies.
+          I believe that practice, curiosity, and consistency are the keys to growth in web development. This portfolio is a small step in my learning journey, and I'm excited to improve my skills every day.
+        </p>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">React</span>
+          <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Tailwind</span>
+          <span class="inline-flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Curious Learner</span>
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      
+    </div>
+  </article>
+</section>
+
+<!-- Education Card -->
+<section class="relative flex justify-center mt-12 px-4 sm:px-6">
+  <article class="w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(2,6,23,0.6)] hover:shadow-[0_20px_50px_rgba(2,6,23,0.8)] transition-all duration-500 transform hover:scale-105 card-entrance">
+
+    <!-- Upper Centered Pill -->
+    <div class="text-center mb-6">
+      <div class="inline-block bg-white/10 px-4 py-1 rounded-full text-gray-300 text-sm font-playfair">EDUCATION</div>
+    </div>
+
+    <div class="md:grid md:grid-cols-2 gap-8 items-start">
+      <!-- Left: University Info -->
+      <div class="space-y-4">
+        <h2 class="font-playfair text-3xl md:text-4xl font-bold text-gray-100">
+          National University of Modern Languages (NUML)
+        </h2>
+        <p class="text-gray-300 text-sm md:text-base">Bachelor of Science in Computer Science</p>
+        <p class="text-gray-400 text-xs md:text-sm">2024 - 2027 | Faisalabad, Pakistan</p>
+        <div class="mt-4 flex flex-col gap-2">
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Currently Pursuing</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Focus on Web Development & Programming</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Active in Coding Communities</span>
+        </div>
+      </div>
+
+      <!-- Right: Coursework -->
+      <div class="space-y-3 mt-6 md:mt-0">
+        <h3 class="font-playfair text-xl font-semibold text-gray-100">Current Coursework:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm md:text-base space-y-1">
+          <li>Programming Fundamentals</li>
+          <li>Web Development</li>
+          <li>Database Basics</li>
+          <li>Computer Science Principles</li>
+          <li>Mathematics for CS</li>
+          <li>Problem Solving</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</section>
+<!-- Work Experience Card -->
+<section class="relative flex justify-center mt-12 px-4 sm:px-6">
+  <article class="w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(2,6,23,0.6)] hover:shadow-[0_20px_50px_rgba(2,6,23,0.8)] transition-all duration-500 transform hover:scale-105 card-entrance">
+
+    <!-- Upper Centered Pill -->
+    <div class="text-center mb-6">
+      <div class="inline-block bg-white/10 px-4 py-1 rounded-full text-gray-300 text-sm font-playfair">WORK EXPERIENCE</div>
+    </div>
+
+    <div class="md:grid md:grid-cols-2 gap-8 items-start">
+      <!-- Left: Company Info -->
+      <div class="space-y-4">
+        <h2 class="font-playfair text-3xl md:text-4xl font-bold text-gray-100">
+          Birdview Logic Academy
+        </h2>
+        <p class="text-gray-300 text-sm md:text-base">Web Development Trainee</p>
+        <p class="text-gray-400 text-xs md:text-sm">2024 - Present | Faisalabad, Pakistan</p>
+        <div class="mt-4 flex flex-col gap-2">
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Learning Modern Web Technologies</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Building Real-World Projects</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100">Collaborative Learning Environment</span>
+        </div>
+      </div>
+
+      <!-- Right: Focus Areas -->
+      <div class="space-y-3 mt-6 md:mt-0">
+        <h3 class="font-playfair text-xl font-semibold text-gray-100">Current Focus Areas:</h3>
+        <ul class="list-disc list-inside text-gray-300 text-sm md:text-base space-y-1">
+          <li>HTML & CSS</li>
+          <li>JavaScript</li>
+          <li>React Development</li>
+          <li>Responsive Design</li>
+          <li>Version Control (Git)</li>
+          <li>Problem Solving</li>
+        </ul>
+      </div>
+    </div>
+  </article>
+</section>
+<!-- Dark Professional Skills & Learning Card -->
+<section class="relative flex justify-center mt-12 px-4 sm:px-6">
+  <article class="w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(2,6,23,0.6)] hover:shadow-[0_20px_50px_rgba(2,6,23,0.8)] transition-all duration-500 transform hover:scale-105 card-entrance">
+
+    <!-- Upper Centered Pill -->
+    <div class="text-center mb-8">
+      <div class="inline-block bg-white/10 px-4 py-1 rounded-full text-gray-300 text-sm font-playfair tracking-wide">SKILLS & LEARNING</div>
+    </div>
+
+    <div class="space-y-10">
+      <!-- Progress Bars -->
+      <div class="space-y-6">
+        <!-- Skill Item Template -->
+        <template id="skill-template">
+          <div class="space-y-1">
+            <div class="flex justify-between text-gray-300 text-sm font-semibold">
+              <span class="skill-name">Skill Name</span>
+              <span class="skill-percent">0%</span>
+            </div>
+            <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+              <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400 skill-bar" style="width:0%"></div>
+            </div>
+          </div>
+        </template>
+
+        <!-- Individual Skills -->
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>HTML/CSS</span>
+            <span>75%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:75%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>JavaScript</span>
+            <span>60%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:60%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>React Basics</span>
+            <span>45%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:45%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>Responsive Design</span>
+            <span>70%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:70%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>Git/GitHub</span>
+            <span>55%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:55%"></div>
+          </div>
+        </div>
+
+        <div class="skill-item">
+          <div class="flex justify-between text-gray-300 text-sm font-semibold">
+            <span>Problem Solving</span>
+            <span>80%</span>
+          </div>
+          <div class="w-full bg-white/10 h-4 rounded-full overflow-hidden">
+            <div class="h-4 rounded-full bg-gradient-to-r from-red-600 to-red-400" style="width:80%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools & Technologies -->
+      <div>
+        <h3 class="font-playfair text-xl font-semibold text-gray-100 mb-4 tracking-wide">Tools & Technologies:</h3>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">HTML5</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">CSS3</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">JavaScript</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">React</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">Git</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">VS Code</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">Figma</span>
+          <span class="inline-block bg-white/10 px-3 py-1 rounded-full text-xs text-gray-100 text-center">Bootstrap</span>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<!-- Scroll Animation Script -->
+<script>
+  const skillItems = document.querySelectorAll('.skill-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        const bar = entry.target.querySelector('.skill-bar');
+        if(bar){
+          bar.style.width = bar.getAttribute('style').match(/width:\d+%/)[0].split(':')[1];
+        }
+      }
+    });
+  }, {threshold:0.3});
+
+  skillItems.forEach(item => observer.observe(item));
+</script>
+<!-- Dark Professional Contact / Let's Connect Card -->
+<section class="relative flex justify-center mt-12 px-4 sm:px-6">
+  <article class="w-full max-w-4xl rounded-3xl p-10 md:p-14 bg-white/5 backdrop-blur-md border border-white/10 shadow-[0_10px_40px_rgba(2,6,23,0.6)] hover:shadow-[0_20px_50px_rgba(2,6,23,0.8)] transition-all duration-500 transform hover:scale-105">
+
+    <!-- Upper Centered Pill -->
+    <div class="text-center mb-8">
+      <div class="inline-block bg-white/10 px-4 py-1 rounded-full text-gray-300 text-sm font-playfair tracking-wide">LET'S CONNECT</div>
+    </div>
+
+    <div class="space-y-8">
+      <!-- Intro Text -->
+      <div class="text-center text-gray-300 space-y-2 max-w-3xl mx-auto">
+        <p>I'm always eager to learn from experienced developers and connect with fellow beginners. Whether you have advice, feedback on my work, or just want to chat about web development, I'd love to hear from you!</p>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-300">
+        <div>
+          <h3 class="font-playfair text-lg font-semibold mb-2">Email</h3>
+          <p>iamhamzatq@gmail.com</p>
+        </div>
+        <div>
+          <h3 class="font-playfair text-lg font-semibold mb-2">Location</h3>
+          <p>Faisalabad, Pakistan</p>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <form id="connectForm" class="space-y-4" novalidate>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input type="text" id="name" required placeholder="Your Name" class="w-full rounded-lg bg-white/5 border border-white/10 p-3 placeholder-gray-400 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500/30 transition duration-300" />
+          <input type="email" id="email" required placeholder="Your Email" class="w-full rounded-lg bg-white/5 border border-white/10 p-3 placeholder-gray-400 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500/30 transition duration-300" />
+        </div>
+        <textarea id="message" rows="5" placeholder="Your Message" class="w-full rounded-lg bg-white/5 border border-white/10 p-3 placeholder-gray-400 text-gray-200 focus:outline-none focus:ring-2 focus:ring-red-500/30 transition duration-300"></textarea>
+
+        <div class="flex flex-col md:flex-row md:justify-between items-center gap-4">
+          <button type="submit" class="px-6 py-3 rounded-lg bg-gradient-to-r from-red-500 to-red-600 font-semibold hover:scale-105 transition transform">
+            Send Message
+          </button>
+          <div class="text-sm text-gray-400">Or email directly: <a href="mailto:iamhamzatq@gmail.com" class="text-gray-200 underline">iamhamzatq@gmail.com</a></div>
+        </div>
+      </form>
+
+      <!-- Toast Notification -->
+      <div id="connectToast" class="toast fixed right-4 bottom-4 bg-gray-900/90 text-white px-6 py-3 rounded-lg shadow-lg opacity-0 transform translate-y-3 transition-all duration-300">Message sent — thank you!</div>
+    </div>
+  </article>
+</section>
+
+<!-- Contact Form Script -->
+<script>
+  const connectForm = document.getElementById('connectForm');
+  const connectToast = document.getElementById('connectToast');
+
+  connectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if(!name || !email || !message){
+      connectToast.textContent = 'Please fill all fields';
+      connectToast.classList.add('show');
+      connectToast.style.opacity = '1';
+      setTimeout(()=>connectToast.style.opacity='0',1800);
+      return;
+    }
+
+    // Fake success
+    connectToast.textContent = 'Message sent — thank you!';
+    connectToast.style.opacity='1';
+    setTimeout(()=>connectToast.style.opacity='0',2000);
+    connectForm.reset();
+  });
+</script>
+
+<!-- Extra Toast Styles -->
+<style>
+.toast.show{
+  opacity:1 !important;
+  transform: translateY(0) !important;
+}
+</style>
+
+
+
+
+</body>
+</html>
